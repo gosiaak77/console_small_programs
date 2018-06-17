@@ -1,8 +1,5 @@
 package pl.coderslab.zadanie4;
 
-import jdk.internal.org.objectweb.asm.tree.IntInsnNode;
-
-import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -33,18 +30,18 @@ public class DiceRoller {
 
     public static int[] diceInfo() {
         String userAnswer = userInfo();
-        String[] diceArray = userAnswer.split("D"); // diceArray[0] - informacja o ilościach rzutów kością
+        String[] diceArray = userAnswer.split("D"); // diceArray[0] - y
         String counter = diceArray[1].toString();
         String[] diceArray2 = null;
 
         if (counter.contains("+")) {
-            diceArray2 = counter.split("[+]"); //  diceArray2[0] - informacja o rodzaju kości i
-                                                        // diceArray2[1] - informacja o dodakowym dodawaniu lub odejmowaniu
+            diceArray2 = counter.split("[+]"); //  diceArray2[0] - x
+                                                        // diceArray2[1] - z
         } else if (counter.contains("-")) {
             diceArray2 = counter.split("[-]");
             String temp = "-" + diceArray2[1];
             diceArray2[1] = temp;
-        } else {                                         // jeżeli w stringu nie ma + to przypisujemy manualnie rodzaj kości
+        } else {                                         //  gdy z = 0
             diceArray2 = new String[2];
             diceArray2[0] = diceArray[1];
             diceArray2[1] = "";
@@ -75,7 +72,7 @@ public class DiceRoller {
     public static int[] diceCheck() {
         int[] diceToCheck = diceInfo();
 
-        while (diceToCheck[1] != 2 && diceToCheck[1] != 3 && diceToCheck[1] != 4 && diceToCheck[1] != 6 && diceToCheck[1] != 8
+        while (diceToCheck[1] != 3 && diceToCheck[1] != 4 && diceToCheck[1] != 6 && diceToCheck[1] != 8
                 && diceToCheck[1] != 10 && diceToCheck[1] != 12 && diceToCheck[1] != 20 && diceToCheck[1] != 100) {
             System.out.println("Nie ma takiej kości");
             diceToCheck = diceInfo();
@@ -93,37 +90,37 @@ public class DiceRoller {
         Random rand = new Random();
         int diceDots = diceParameters[1];
         int diceRandom = 0;
-        if (diceParameters[2] != 0) { // sumulacja rzutów z modyfikacją wyniku
+        if (diceParameters[2] != 0) {                                // sumulacja rzutów z modyfikacją wyniku
             diceRandom = rand.nextInt(diceDots) + 1;
             System.out.println("Wyrzuciłeś " + diceRandom);
             sumOfResults = diceRandom;
-            if (diceParameters[0]==0) { // jeżeli rzut wykonuje się 1 raz to wyświetl
+            if (diceParameters[0]==0) {                              // jeżeli rzut wykonuje się 1 raz to wyświetl
                 System.out.println("Wynik po modyfikacji " + diceParameters[2] + " równa się " + sumOfResults);
             }
 
-            if (diceParameters[0] != 0) {  // wykonuje dodatkowe rzuty
+            if (diceParameters[0] != 0) {                         // wykonuje dodatkowe rzuty
                 for (int i = 1; i < diceParameters[0]; i++) {
                     diceRandom = rand.nextInt(diceDots) + 1;
                     System.out.println("Wyrzuciłeś " + diceRandom);
                     sumOfResults = sumOfResults + +diceRandom + diceParameters[2];
-                    if (i==diceParameters[0]-1) { // po ostatnim rzucie wyświetl wiadomość
+                    if (i==diceParameters[0]-1) {               // po ostatnim rzucie wyświetl wiadomość
                         System.out.println("Suma wyników po modyfikacji " + diceParameters[2] + " równa się " + sumOfResults);
                     }
                 }
             }
 
-        } else { // symulacja rzutów bez modyfikacji wyniku
+        } else {                                            // symulacja rzutów bez modyfikacji wyniku
             diceRandom = rand.nextInt(diceDots) + 1;
             System.out.println("Wyrzuciłeś " + diceRandom);
             sumOfResults = diceRandom;
 
-            if (diceParameters[0] != 0) {  // wykonuje dodatkowe rzuty
+            if (diceParameters[0] != 0) {                     // wykonuje dodatkowe rzuty
                 for (int i = 1; i < diceParameters[0]; i++) {
                     diceRandom = rand.nextInt(diceDots) + 1;
                     System.out.println("Wyrzuciłeś " + diceRandom);
                     sumOfResults = sumOfResults + +diceRandom;
 
-                    if (i==diceParameters[0]-1){ // po ostatnim rzucie wyświetl wiadomość
+                    if (i==diceParameters[0]-1){             // po ostatnim rzucie wyświetl wiadomość
                         System.out.println("Suma wyników równa się " + sumOfResults);
                     }
                 }
