@@ -1,4 +1,4 @@
-# warsztaty 1 - workshop 1
+# Console programs
 ## A few simple projects just to learn basics
 ### zadanie 1 - GuessNumber
 #### Guess the number game where computer will think of a random number from 1 to 100
